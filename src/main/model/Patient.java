@@ -6,9 +6,29 @@ package model;
 
 
 public class Patient {
-    public String pt1 = "John";
-    public int phn = 12345;
-    public String gender = "Male";
+    private String fullName;
+    private int publicHealthNumber;
+
+    // EFFECTS: patient has a full name and a public health number.
+    public Patient(String fullName, int publicHealthNumber) {
+        this.fullName = fullName;
+        this.publicHealthNumber = publicHealthNumber;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public int getPublicHealthNumber() {
+        return publicHealthNumber;
+    }
+
+
+
+
+
+
+
 
 
 
