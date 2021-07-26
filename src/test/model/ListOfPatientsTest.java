@@ -2,7 +2,6 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.ListOfPatients;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +23,7 @@ public class ListOfPatientsTest {
     void testAddPatient() {
 
         map.addPatient(number, name);
-        Patient j = map.viewPatient(number);
+        Patient j = map.getPatientByID(number);
         assertEquals(number, j.getPublicHealthNumber());
         assertEquals(name, j.getFullName());
 
@@ -34,10 +33,10 @@ public class ListOfPatientsTest {
     void testDeletePatient() {
 
         map.addPatient(number, name);
-        Patient j = map.viewPatient(number);
+        Patient j = map.getPatientByID(number);
         assertNotNull(j);
         map.deletePatient(number);
-        j = map.viewPatient(number);
+        j = map.getPatientByID(number);
         assertNull(j);
 
     }
@@ -48,7 +47,7 @@ public class ListOfPatientsTest {
         String name1 = "Margot Robbie";
         map.editPatient(name1, number);
 
-        Patient p = map.viewPatient(number);
+        Patient p = map.getPatientByID(number);
 
         assertEquals(name1, p.getFullName());
 
