@@ -15,26 +15,32 @@ public class Patient {
         this.publicHealthNumber = publicHealthNumber;
     }
 
+
+    // EFFECTS: returns full name
     public String getFullName() {
         return fullName;
     }
 
+
+    // EFFECTS: returns public health number
     public int getPublicHealthNumber() {
         return publicHealthNumber;
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: the existing full name is changed to a new full name
     public void setFullName(String fullName) {
         this.fullName = fullName;
 
     }
 
-
-
-
-
-
-
-
-
-
+    // MODIFIES:
+    // EFFECTS:
+    @Override
+    public boolean equals(Object obj) {
+        Patient p = (Patient) obj;
+        boolean equal = p.getFullName() == this.fullName && p.getPublicHealthNumber() == this.publicHealthNumber;
+        return equal;
+    }
 }
