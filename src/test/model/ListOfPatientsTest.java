@@ -45,11 +45,20 @@ public class ListOfPatientsTest {
     void testEditPatient() {
         map.addPatient(number, name);
         String name1 = "Margot Robbie";
+        int number1 = 231;
         map.editPatient(name1, number);
 
         Patient p = map.getPatientByID(number);
 
         assertEquals(name1, p.getFullName());
+
+        map.editPatient(name1, number1);
+
+        Patient j = map.getPatientByID(number1);
+        System.out.println(j);
+        assertNull(j);
+
+
 
 
 
