@@ -6,4 +6,11 @@ package model;
 
 
 public class Patient {
+    public String pt1 = "John";
+    public int phn = 12345;
+    public String gender = "Male";
+
+
+
+
 }
