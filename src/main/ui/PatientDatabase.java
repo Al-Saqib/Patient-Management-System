@@ -69,22 +69,20 @@ public class PatientDatabase {
     // MODIFIES: this
     // EFFECTS: adds a patient to the list of patients
     private void commandAdd() {
-        System.out.println("\nPlease enter public health number of patient:");
-        System.out.println("If you don't want to do this operation, enter a negative number.");
-
-        while (!input.hasNextInt()) {
-            System.out.println("That's not a number!");
-            input.next(); // this is important!
-        }
-
-        int publicHealthNumber = input.nextInt();
+        int publicHealthNumber = processInt();
 
         if (publicHealthNumber < 0) {
             return;
         }
 
+        if (lisp.getListOfPatients().containsKey(publicHealthNumber)) {
+            System.out.println("Patient already exists. Use edit function to change personal information.");
+            return;
+        }
+
         System.out.println("\nPlease enter full name of patient:");
         String fullName = input.next();
+
         lisp.addPatient(publicHealthNumber, fullName);
     }
 
@@ -100,34 +98,44 @@ public class PatientDatabase {
     // EFFECTS: edits full name of the patient
     private void commandEdit() {
         commandView();
-        System.out.println("\nPlease enter public health number of patient:");
-        System.out.println("If you don't want to do this operation, enter a negative number.");
-
-        while (!input.hasNextInt()) {
-            System.out.println("That's not a number!");
-            input.next();
-        }
-
-        int publicHealthNumber = input.nextInt();
+        int publicHealthNumber = processInt();
 
         if (publicHealthNumber < 0) {
+            return;
+        }
+
+        if (!lisp.getListOfPatients().containsKey(publicHealthNumber)) {
+            System.out.println("Patient doesn't exist. Use add function to add patient.");
             return;
         }
 
         System.out.println("\nPlease enter full name of patient:");
         String fullName = input.next();
         lisp.editPatient(fullName, publicHealthNumber);
-
-
-
     }
 
 
     // MODIFIES: this
     // EFFECTS: deletes a patient from list of patients
     private void commandDelete() {
-
         commandView();
+        int publicHealthNumber = processInt();
+
+        if (publicHealthNumber < 0) {
+            return;
+        }
+
+        if (!lisp.getListOfPatients().containsKey(publicHealthNumber)) {
+            System.out.println("Patient does not exist.");
+            return;
+        }
+
+        lisp.deletePatient(publicHealthNumber);
+
+    }
+
+    // EFFECT: takes the user input and returns if an integer, otherwise prompts user for a valid input
+    public int processInt() {
         System.out.println("\nPlease enter public health number of patient:");
         System.out.println("If you don't want to do this operation, enter a negative number.");
 
@@ -138,14 +146,7 @@ public class PatientDatabase {
 
         int publicHealthNumber = input.nextInt();
 
-        if (publicHealthNumber < 0) {
-            return;
-        }
-
-//        System.out.println("\nPlease enter full name of patient:");
-//        String fullName = input.next();
-        lisp.deletePatient(publicHealthNumber);
-
+        return publicHealthNumber;
     }
 
 }

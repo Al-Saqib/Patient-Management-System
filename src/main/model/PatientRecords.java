@@ -54,7 +54,7 @@ public class PatientRecords {
 
 
 
-    // EFFECTS:
+    // EFFECTS: returns a Hashmap
     public HashMap<Integer, Patient> getListOfPatients() {
         return patientMap;
     }
