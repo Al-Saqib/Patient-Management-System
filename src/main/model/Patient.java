@@ -23,6 +23,10 @@ public class Patient {
         return publicHealthNumber;
     }
 
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+
+    }
 
 
 
