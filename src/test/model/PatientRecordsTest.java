@@ -71,7 +71,9 @@ public class PatientRecordsTest {
         Patient j = records.getPatientByID(number);
         Patient p = cap.get(number);
 
-        assertTrue(p.equals(j));
+        assertTrue(p.getFullName() == j.getFullName());
+        assertTrue(p.getPublicHealthNumber() == j.getPublicHealthNumber());
+
 
 
 

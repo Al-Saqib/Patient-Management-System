@@ -37,10 +37,10 @@ public class Patient {
 
     // MODIFIES:
     // EFFECTS:
-    @Override
-    public boolean equals(Object obj) {
-        Patient p = (Patient) obj;
-        boolean equal = p.getFullName() == this.fullName && p.getPublicHealthNumber() == this.publicHealthNumber;
-        return equal;
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        Patient p = (Patient) obj;
+//        boolean equal = p.getFullName() == this.fullName && p.getPublicHealthNumber() == this.publicHealthNumber;
+//        return equal;
+//    }
 }
