@@ -2,6 +2,11 @@ package ui;
 
 import model.PatientRecords;
 import model.Patient;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // console implementation is inspired by the teller
@@ -9,13 +14,17 @@ import java.util.Scanner;
 
 // Patient Management Application
 public class PatientDatabase {
+    private static final String JSON_STORE = "./data/database.json";
 
-    private PatientRecords lisp;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
+    private PatientRecords patientRecords;
     private Scanner input;
 
     // EFFECTS: runs the patient management application
     public PatientDatabase() {
-        lisp = new PatientRecords();
+        patientRecords = new PatientRecords();
     }
 
     // MODIFIES: this
@@ -24,6 +33,8 @@ public class PatientDatabase {
         input = new Scanner(System.in).useDelimiter("\\n");;
         boolean keepRunning = true;
         String command = null;
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
 
         while (keepRunning) {
             displayMenu();
@@ -47,7 +58,10 @@ public class PatientDatabase {
         System.out.println("\te -> edit");
         System.out.println("\tv -> view");
         System.out.println("\td -> delete");
+        System.out.println("\ts -> save");
+        System.out.println("\tl -> load");
         System.out.println("\tq -> quit");
+
     }
 
     // MODIFIES: this
@@ -61,6 +75,10 @@ public class PatientDatabase {
             commandView();
         } else if (command.equals("d")) {
             commandDelete();
+        } else if (command.equals("s")) {
+            commandSave();
+        } else if (command.equals("l")) {
+            commandLoad();
         } else {
             System.out.println("Selection not recognized...");
         }
@@ -75,7 +93,7 @@ public class PatientDatabase {
             return;
         }
 
-        if (lisp.getListOfPatients().containsKey(publicHealthNumber)) {
+        if (patientRecords.getListOfPatients().containsKey(publicHealthNumber)) {
             System.out.println("Patient already exists. Use edit function to change personal information.");
             return;
         }
@@ -83,13 +101,14 @@ public class PatientDatabase {
         System.out.println("\nPlease enter full name of patient:");
         String fullName = input.next();
 
-        lisp.addPatient(publicHealthNumber, fullName);
+        patientRecords.addPatient(publicHealthNumber, fullName);
+        System.out.println("\nPatient " + fullName + " with number " + publicHealthNumber + " has been added.");
     }
 
 
     // EFFECTS: shows the patients in the list of patients
     private void commandView() {
-        for (Patient p: lisp.getListOfPatients().values()) {
+        for (Patient p: patientRecords.getListOfPatients().values()) {
             System.out.println(p.getPublicHealthNumber() + ": " + p.getFullName());
         }
     }
@@ -104,14 +123,16 @@ public class PatientDatabase {
             return;
         }
 
-        if (!lisp.getListOfPatients().containsKey(publicHealthNumber)) {
+        if (!patientRecords.getListOfPatients().containsKey(publicHealthNumber)) {
             System.out.println("Patient doesn't exist. Use add function to add patient.");
             return;
         }
 
         System.out.println("\nPlease enter full name of patient:");
         String fullName = input.next();
-        lisp.editPatient(fullName, publicHealthNumber);
+        patientRecords.editPatient(fullName, publicHealthNumber);
+
+        System.out.println("\nPatient " + fullName + " with number " + publicHealthNumber + " has been edited.");
     }
 
 
@@ -125,12 +146,37 @@ public class PatientDatabase {
             return;
         }
 
-        if (!lisp.getListOfPatients().containsKey(publicHealthNumber)) {
+        if (!patientRecords.getListOfPatients().containsKey(publicHealthNumber)) {
             System.out.println("Patient does not exist.");
             return;
         }
 
-        lisp.deletePatient(publicHealthNumber);
+        String fullName = patientRecords.getListOfPatients().get(publicHealthNumber).getFullName();
+
+        patientRecords.deletePatient(publicHealthNumber);
+        System.out.println("\nPatient " + fullName + " with number " + publicHealthNumber + " has been deleted.");
+    }
+
+    private void commandSave() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(patientRecords);
+            jsonWriter.close();
+            System.out.println("Saved patient records to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+
+    }
+
+    private void commandLoad() {
+
+        try {
+            patientRecords = jsonReader.read();
+            System.out.println("Loaded patient records from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
 
     }
 

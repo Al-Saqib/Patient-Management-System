@@ -1,12 +1,14 @@
 package model;
 
-import model.Patient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.HashMap;
-import java.util.Scanner;
 
 // Represents a list of patients to be handled by the diagnostic center
 // management team
-public class PatientRecords {
+public class PatientRecords implements Writable {
 
     private HashMap<Integer, Patient> patientMap;
 
@@ -57,6 +59,25 @@ public class PatientRecords {
     // EFFECTS: returns a Hashmap
     public HashMap<Integer, Patient> getListOfPatients() {
         return patientMap;
+    }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("patients", patientsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray patientsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Patient p: patientMap.values()) {
+            jsonArray.put(p.toJson());
+        }
+
+        return jsonArray;
     }
 
 }

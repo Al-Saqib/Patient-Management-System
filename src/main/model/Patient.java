@@ -5,7 +5,10 @@ package model;
 // with patient's name, date of birth, gender and public health number.
 
 
-public class Patient {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Patient implements Writable {
     private String fullName;
     private int publicHealthNumber;
 
@@ -33,6 +36,14 @@ public class Patient {
     public void setFullName(String fullName) {
         this.fullName = fullName;
 
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", fullName);
+        json.put("num", publicHealthNumber);
+        return json;
     }
 
 }
