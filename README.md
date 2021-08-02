@@ -21,13 +21,17 @@ being bogged down by trying to find patient information and history.
 
 The following are the *user stories* for the application:
 
-- As a *user*, I want to be able to **add** a new patient to a list of patients
-- As a *user*, I want to be able **view** the history of the patient
-- As a *user*, I want to be able to **update** the history of the patient
-- As a *user*, I want to be able to **remove** a patient from a list of patients
+**User stories for phase 1**: 
 
+- As a *user*, I want to be able to **add** a new patient to the patient database
+- As a *user*, I want to be able **view** the patient records in the patient database
+- As a *user*, I want to be able to **edit** the names of the patients in the database
+- As a *user*, I want to be able to **remove** a patient from the patient database
+
+
+**User stories for phase 2**: 
 - As a *user*, I want be able to save the patient records to file. 
-- As a *user*, I want to able to load the patient records from the file. 
-- As a *user*, I want to prompted to save the patient records when I quit.  
-- As a *user*, I want to have the saved file already loaded when I start. 
+- As a *user*, I want to be able to load the patient records from the file. 
+- As a *user*, I want to be prompted to save the patient records to file when I quit.  
+- As a *user*, I want to have the saved patient records already loaded when I start the application. 
 

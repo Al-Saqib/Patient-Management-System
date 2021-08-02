@@ -12,7 +12,10 @@ import java.util.Scanner;
 // console implementation is inspired by the teller
 // app example provided for project phase 1
 
-// Patient Management Application
+// data persistence implementation inspired by JSon
+// Serialization Demo provided for project phase 2
+
+// Represents the patient management application
 public class PatientDatabase {
     private static final String JSON_STORE = "./data/database.json";
 
@@ -86,7 +89,8 @@ public class PatientDatabase {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds a patient to the list of patients
+    // EFFECTS: prompts user for name and public health number of patient and
+    // adds to patient records
     private void commandAdd() {
         int publicHealthNumber = processInt();
 
@@ -107,7 +111,7 @@ public class PatientDatabase {
     }
 
 
-    // EFFECTS: shows the patients in the list of patients
+    // EFFECTS: shows user all the patients in the patient records
     private void commandView() {
         for (Patient p: patientRecords.getRecords().values()) {
             System.out.println(p.getPublicHealthNumber() + ": " + p.getFullName());
@@ -115,7 +119,7 @@ public class PatientDatabase {
     }
 
     // MODIFIES: this
-    // EFFECTS: edits full name of the patient
+    // EFFECTS: edits full name of the patient in the patient records
     private void commandEdit() {
         commandView();
         int publicHealthNumber = processInt();
@@ -158,6 +162,7 @@ public class PatientDatabase {
         System.out.println("\nPatient " + fullName + " with number " + publicHealthNumber + " has been deleted.");
     }
 
+    // EFFECTS: saves the patient records to file
     private void save() {
         try {
             jsonWriter.open();
@@ -170,6 +175,8 @@ public class PatientDatabase {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads patient records from file
     private void load() {
 
         try {
@@ -181,6 +188,9 @@ public class PatientDatabase {
 
     }
 
+    // EFFECTS: if a user quits the applications, prompts the user
+    // to save patient records, otherwise returns false
+
     private boolean quit() {
 
         promptSave();
@@ -188,6 +198,9 @@ public class PatientDatabase {
         return false;
     }
 
+
+    // EFFECTS: if user inputs "y" and "n", saves patient records to database
+    // and quits the application respectively, otherwise prompts user to try again
     private void promptSave() {
         System.out.println("\nWould you prefer to save this database?:");
         System.out.println("\ty -> yes");

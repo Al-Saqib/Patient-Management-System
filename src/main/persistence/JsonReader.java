@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-// Represents a reader that reads workroom from JSON data stored in file
+// Represents a reader that reads patient records from JSON data stored in file
 public class JsonReader {
     private String source;
 
@@ -21,7 +21,7 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads workroom from file and returns it;
+    // EFFECTS: reads patient records from file and returns it;
     // throws IOException if an error occurs reading data from file
     public PatientRecords read() throws IOException {
         String jsonData = readFile(source);
@@ -40,7 +40,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses workroom from JSON object and returns it
+    // EFFECTS: parses patient records from JSON object and returns it
     private PatientRecords parseRecords(JSONObject jsonObject) {
         PatientRecords pr = new PatientRecords();
         addPatients(pr, jsonObject);
@@ -48,7 +48,7 @@ public class JsonReader {
     }
 
     // MODIFIES: pr
-    // EFFECTS: parses thingies from JSON object and adds them to workroom
+    // EFFECTS: parses patients from JSON object and adds them to patient records
     private void addPatients(PatientRecords pr, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("patients");
         for (Object json : jsonArray) {
@@ -61,7 +61,7 @@ public class JsonReader {
     }
 
     // MODIFIES: pr
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
+    // EFFECTS: parses patient from JSON object and adds it to patient records
     private void addPatient(PatientRecords pr, JSONObject jsonObject) {
         String fullName = jsonObject.getString("name");
         int publicHealthNumber = jsonObject.getInt("num");

@@ -53,12 +53,12 @@ class JsonWriterTest extends JsonTest {
             pr.addPatient(123, "Abbasuddin");
             pr.addPatient(918, "John Smith");
             pr.addPatient(421, "Mofiz Uddin");
-            JsonWriter writer = new JsonWriter("./data/testGeneralDB.json");
+            JsonWriter writer = new JsonWriter("./data/testGeneralD.json");
             writer.open();
             writer.write(pr);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testGeneralDB.json");
+            JsonReader reader = new JsonReader("./data/testGeneralD.json");
             pr = reader.read();
 
             Collection<Patient> patientsC = pr.getRecords().values();

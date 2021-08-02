@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-// Represents a writer that writes JSON representation of workroom to file
+// Represents a writer that writes JSON representation of patent records to file
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;
@@ -26,7 +26,7 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
+    // EFFECTS: writes JSON representation of patient records to file
     public void write(PatientRecords pr) {
         JSONObject json = pr.toJson();
         saveToFile(json.toString(TAB));

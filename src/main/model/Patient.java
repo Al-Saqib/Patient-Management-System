@@ -1,12 +1,9 @@
 package model;
-
-
-// Represents a patient to be managed by the diagnostic center administration
-// with patient's name, date of birth, gender and public health number.
-
-
 import org.json.JSONObject;
 import persistence.Writable;
+
+// Represents a patient to be managed by the diagnostic center administration
+// with patient's name and public health number.
 
 public class Patient implements Writable {
     private String fullName;
@@ -37,6 +34,7 @@ public class Patient implements Writable {
         this.fullName = fullName;
 
     }
+
 
     @Override
     public JSONObject toJson() {
