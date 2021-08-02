@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 // Represents a list of patients to be handled by the diagnostic center
@@ -57,7 +59,7 @@ public class PatientRecords implements Writable {
 
 
     // EFFECTS: returns a Hashmap
-    public HashMap<Integer, Patient> getListOfPatients() {
+    public HashMap<Integer, Patient> getRecords() {
         return patientMap;
     }
 
@@ -73,7 +75,10 @@ public class PatientRecords implements Writable {
     private JSONArray patientsToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (Patient p: patientMap.values()) {
+
+        Collection<Patient> patients = patientMap.values();
+
+        for (Patient p: patients) {
             jsonArray.put(p.toJson());
         }
 

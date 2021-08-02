@@ -7,6 +7,7 @@ import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 // console implementation is inspired by the teller
@@ -30,7 +31,7 @@ public class PatientDatabase {
     // MODIFIES: this
     // EFFECTS: processes user input
     public void systemApp() {
-        input = new Scanner(System.in).useDelimiter("\\n");;
+        input = new Scanner(System.in).useDelimiter("\\n");
         boolean keepRunning = true;
         String command = null;
         jsonReader = new JsonReader(JSON_STORE);
@@ -93,7 +94,7 @@ public class PatientDatabase {
             return;
         }
 
-        if (patientRecords.getListOfPatients().containsKey(publicHealthNumber)) {
+        if (patientRecords.getRecords().containsKey(publicHealthNumber)) {
             System.out.println("Patient already exists. Use edit function to change personal information.");
             return;
         }
@@ -108,7 +109,7 @@ public class PatientDatabase {
 
     // EFFECTS: shows the patients in the list of patients
     private void commandView() {
-        for (Patient p: patientRecords.getListOfPatients().values()) {
+        for (Patient p: patientRecords.getRecords().values()) {
             System.out.println(p.getPublicHealthNumber() + ": " + p.getFullName());
         }
     }
@@ -123,7 +124,7 @@ public class PatientDatabase {
             return;
         }
 
-        if (!patientRecords.getListOfPatients().containsKey(publicHealthNumber)) {
+        if (!patientRecords.getRecords().containsKey(publicHealthNumber)) {
             System.out.println("Patient doesn't exist. Use add function to add patient.");
             return;
         }
@@ -146,12 +147,12 @@ public class PatientDatabase {
             return;
         }
 
-        if (!patientRecords.getListOfPatients().containsKey(publicHealthNumber)) {
+        if (!patientRecords.getRecords().containsKey(publicHealthNumber)) {
             System.out.println("Patient does not exist.");
             return;
         }
 
-        String fullName = patientRecords.getListOfPatients().get(publicHealthNumber).getFullName();
+        String fullName = patientRecords.getRecords().get(publicHealthNumber).getFullName();
 
         patientRecords.deletePatient(publicHealthNumber);
         System.out.println("\nPatient " + fullName + " with number " + publicHealthNumber + " has been deleted.");

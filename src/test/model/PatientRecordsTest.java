@@ -66,7 +66,7 @@ public class PatientRecordsTest {
     @Test
     void testGetListOfPatients() {
         records.addPatient(number, name);
-        HashMap<Integer, Patient> cap = records.getListOfPatients();
+        HashMap<Integer, Patient> cap = records.getRecords();
 
         Patient j = records.getPatientByID(number);
         Patient p = cap.get(number);
