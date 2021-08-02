@@ -27,4 +27,7 @@ The following are the *user stories* for the application:
 - As a *user*, I want to be able to **remove** a patient from a list of patients
 
 - As a *user*, I want be able to save the patient records to file. 
-- As a *user*, I want to able to load the patient records from file. 
+- As a *user*, I want to able to load the patient records from the file. 
+- As a *user*, I want to prompted to save the patient records when I quit.  
+- As a *user*, I want to have the saved file already loaded when I start. 
+

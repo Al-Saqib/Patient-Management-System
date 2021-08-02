@@ -7,7 +7,6 @@ import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 // console implementation is inspired by the teller
@@ -36,6 +35,7 @@ public class PatientDatabase {
         String command = null;
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
+        load();
 
         while (keepRunning) {
             displayMenu();
@@ -43,7 +43,7 @@ public class PatientDatabase {
             command = command.toLowerCase();
 
             if (command.equals("q")) {
-                keepRunning = false;
+                keepRunning = quit();
             } else {
                 processCommand(command);
             }
@@ -77,9 +77,9 @@ public class PatientDatabase {
         } else if (command.equals("d")) {
             commandDelete();
         } else if (command.equals("s")) {
-            commandSave();
+            save();
         } else if (command.equals("l")) {
-            commandLoad();
+            load();
         } else {
             System.out.println("Selection not recognized...");
         }
@@ -158,7 +158,7 @@ public class PatientDatabase {
         System.out.println("\nPatient " + fullName + " with number " + publicHealthNumber + " has been deleted.");
     }
 
-    private void commandSave() {
+    private void save() {
         try {
             jsonWriter.open();
             jsonWriter.write(patientRecords);
@@ -170,7 +170,7 @@ public class PatientDatabase {
 
     }
 
-    private void commandLoad() {
+    private void load() {
 
         try {
             patientRecords = jsonReader.read();
@@ -179,6 +179,34 @@ public class PatientDatabase {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
 
+    }
+
+    private boolean quit() {
+
+        promptSave();
+
+        return false;
+    }
+
+    private void promptSave() {
+        System.out.println("\nWould you prefer to save this database?:");
+        System.out.println("\ty -> yes");
+        System.out.println("\tn -> no");
+
+        String command = input.next();
+        command = command.toLowerCase();
+
+        while (!command.equals("y") || !command.equals("n")) {
+            if (command.equals("y")) {
+                save();
+                return;
+            } else if (command.equals("n")) {
+                return;
+            }
+            System.out.println("Invalid input. Please try again.");
+            command = input.next();
+
+        }
     }
 
     // EFFECT: takes the user input and returns if an integer, otherwise prompts user for a valid input
