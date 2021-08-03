@@ -9,10 +9,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 // console implementation is inspired by the teller
 // app example provided for project phase 1
 
-// data persistence implementation inspired by JSon
+// data persistence implementation is inspired by JSon
 // Serialization Demo provided for project phase 2
 
 // Represents the patient management application
@@ -20,8 +23,8 @@ public class PatientDatabase {
     private static final String JSON_STORE = "./data/database.json";
 
     private JsonWriter jsonWriter;
+    private boolean changesSaved;
     private JsonReader jsonReader;
-
     private PatientRecords patientRecords;
     private Scanner input;
 
@@ -35,6 +38,7 @@ public class PatientDatabase {
     public void systemApp() {
         input = new Scanner(System.in).useDelimiter("\\n");
         boolean keepRunning = true;
+        changesSaved = true;
         String command = null;
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
@@ -108,6 +112,8 @@ public class PatientDatabase {
 
         patientRecords.addPatient(publicHealthNumber, fullName);
         System.out.println("\nPatient " + fullName + " with number " + publicHealthNumber + " has been added.");
+
+        changesSaved = false;
     }
 
 
@@ -138,6 +144,8 @@ public class PatientDatabase {
         patientRecords.editPatient(fullName, publicHealthNumber);
 
         System.out.println("\nPatient " + fullName + " with number " + publicHealthNumber + " has been edited.");
+
+        changesSaved = false;
     }
 
 
@@ -160,6 +168,8 @@ public class PatientDatabase {
 
         patientRecords.deletePatient(publicHealthNumber);
         System.out.println("\nPatient " + fullName + " with number " + publicHealthNumber + " has been deleted.");
+
+        changesSaved = false;
     }
 
     // EFFECTS: saves the patient records to file
@@ -172,6 +182,10 @@ public class PatientDatabase {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
+
+        changesSaved = true;
+
+
 
     }
 
@@ -188,19 +202,24 @@ public class PatientDatabase {
 
     }
 
-    // EFFECTS: if a user quits the applications, prompts the user
+    // EFFECTS: if a user quits the applications after making changes, prompts the user
     // to save patient records, otherwise returns false
 
     private boolean quit() {
 
-        promptSave();
+        if (!changesSaved) {
+
+
+            promptSave();
+        }
 
         return false;
     }
 
 
-    // EFFECTS: if user inputs "y" and "n", saves patient records to database
-    // and quits the application respectively, otherwise prompts user to try again
+    // EFFECTS: if user inputs "y", saves patient records to database
+    // and quits the application, if user inputs "n", quits the application,
+    // otherwise prompts user to try again
     private void promptSave() {
         System.out.println("\nWould you prefer to save this database?:");
         System.out.println("\ty -> yes");
