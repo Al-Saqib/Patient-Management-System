@@ -22,46 +22,53 @@ public class OperationsPanel extends JPanel {
         setBackground(Color.white);
         setPreferredSize(new Dimension((PatientDatabaseGUI.WIDTH * 3 / 4), PatientDatabaseGUI.HEIGHT));
 
-        functionalityLabel = addLabel();
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 1;
+
+
+        functionalityLabel = addLabel(c);
+
+        c.gridy = 2;
         text = new JTextArea(5, 15);
-        add(text);
+        add(text, c);
 
-        labelInstruction = addLabel();
+        labelInstruction = addLabel(c);
 
-        label1 = addLabel("Public Health Number: ");
+        label1 = addLabel("Public Health Number: ", c);
         input1 = new JTextField(10);
         input1.addActionListener(listener);
         input1.setActionCommand("ADD_NUM");
 
-        add(input1);
+        add(input1, c);
 
-        label2 = addLabel("Full Name: ");
+        label2 = addLabel("Full Name: ", c);
 
         input2 = new JTextField(15);
         input2.addActionListener(listener);
         input2.setActionCommand("ADD_NAME");
-        add(input2);
+        add(input2, c);
 
         submit = new JButton("submit");
         submit.addActionListener(listener);
         submit.setActionCommand("ADD");
-        add(submit);
+        add(submit, c);
 
-        labelFeedback = addLabel();
+        labelFeedback = addLabel(c);
 
         invisible();
 
     }
 
-    private JLabel addLabel() {
+    private JLabel addLabel(GridBagConstraints c) {
         JLabel label = new JLabel();
-        add(label);
+        add(label, c);
         return label;
     }
 
-    private JLabel addLabel(String s) {
+    private JLabel addLabel(String s, GridBagConstraints c) {
         JLabel label = new JLabel(s);
-        add(label);
+        add(label, c);
         return label;
     }
 
@@ -112,7 +119,6 @@ public class OperationsPanel extends JPanel {
     public void view(String s) {
         functionalityLabel.setText("");
         invisible();
-//        labelInstruction.setText("Patient Records:");
         text.setVisible(true);
         text.setText("Patient Records: \n" +  s);
     }
@@ -153,7 +159,7 @@ public class OperationsPanel extends JPanel {
         input2.setText("");
     }
 
-    public void save() {
+    public void saveQuit() {
         add(new JLabel("Would you prefer to save this database?"));
         JButton no = new JButton("No");
         no.addActionListener(listener);
@@ -165,6 +171,11 @@ public class OperationsPanel extends JPanel {
         yes.setActionCommand("SAVE_QUIT");
         add(yes);
 
+    }
+
+    public void save() {
+        invisible();
+        labelFeedback.setVisible(true);
     }
 
 }

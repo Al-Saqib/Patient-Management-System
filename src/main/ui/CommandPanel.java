@@ -26,27 +26,33 @@ public class CommandPanel extends JPanel {
     }
 
     private void createButtons() {
-        JButton buttonAdd = createButton("add", "ADD_GUI");
-        JButton buttonView = createButton("view");
-        JButton buttonEdit = createButton("edit", "edit_gui");
-        JButton buttonDelete = createButton("delete", "Delete_GUI");
-        JButton buttonLoad = createButton("load");
-        JButton buttonSave = createButton("save");
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+
+        JButton buttonAdd = createButton("add", "ADD_GUI", c, 1);
+        JButton buttonView = createButton("view", c, 2);
+        JButton buttonEdit = createButton("edit", "edit_gui", c, 3);
+        JButton buttonDelete = createButton("delete", "Delete_GUI", c, 4);
+        JButton buttonLoad = createButton("load", c, 5);
+        JButton buttonSave = createButton("save", c, 6);
     }
 
-    private JButton createButton(String name, String action) {
+    private JButton createButton(String name, String action, GridBagConstraints c, int y) {
         JButton button = new JButton(name.toUpperCase());
         button.addActionListener(listener);
         button.setActionCommand(action.toUpperCase());
+        c.gridy = y;
+        add(button, c);
         add(button);
         return button;
     }
 
-    private JButton createButton(String name) {
+    private JButton createButton(String name, GridBagConstraints c, int y) {
         JButton button = new JButton(name.toUpperCase());
         button.addActionListener(listener);
         button.setActionCommand(name.toUpperCase());
-        add(button);
+        c.gridy = y;
+        add(button, c);
         return button;
     }
 

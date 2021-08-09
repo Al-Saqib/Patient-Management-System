@@ -4,6 +4,8 @@ import model.Patient;
 import model.PatientRecords;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,14 +13,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class PatientDatabaseGUI extends JFrame implements ActionListener {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
 
     private static final String JSON_STORE = "./data/database.json";
+
     private JsonWriter jsonWriter;
     private boolean changesSaved;
     private JsonReader jsonReader;
@@ -26,6 +31,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
 
     private CommandPanel cp;
     private OperationsPanel op;
+
+    private SoundPlayer soundPlayer;
 
     public PatientDatabaseGUI() {
         // createWindow
@@ -54,15 +61,21 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         setVisible(true);
         setResizable(false);
 
+        initialize();
+    }
+
+    private void initialize() {
         patientRecords = new PatientRecords();
         changesSaved = true;
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
+        soundPlayer = new SoundPlayer();
         load();
     }
 
     //This is the method that is called when the the JButton btn is clicked
     public void actionPerformed(ActionEvent e) {
+        playSound();
         generateGUI(e);
         dataPersistenceFunctions(e);
         if (e.getActionCommand().equals("VIEW")) {
@@ -87,11 +100,11 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
             op.add();
         }
         if (e.getActionCommand().equals("DELETE_GUI")) {
-            commandView();
+            viewHelper();
             op.delete();
         }
         if (e.getActionCommand().equals("EDIT_GUI")) {
-            commandView();
+            viewHelper();
             op.edit();
         }
     }
@@ -148,7 +161,7 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         int publicHealthNumber = 0;
         String fullName = "";
 
-        commandView();
+        viewHelper();
 
         try {
             publicHealthNumber = Integer.parseInt(op.getPublicHealthNumber());
@@ -170,7 +183,7 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
 
             op.feedback("\nPatient " + fullName + " with number " + publicHealthNumber + " has been edited.");
             op.clear();
-            commandView();
+            viewHelper();
 
             changesSaved = false;
         }
@@ -181,7 +194,7 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     private void commandDelete() {
         int publicHealthNumber = 0;
 
-        commandView();
+        viewHelper();
 
         try {
             publicHealthNumber = Integer.parseInt(op.getPublicHealthNumber());
@@ -202,14 +215,19 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
             patientRecords.deletePatient(publicHealthNumber);
             op.feedback(("\nPatient " + fullName + " with number " + publicHealthNumber + " has been deleted."));
             op.clear();
-            commandView();
+            viewHelper();
 
             changesSaved = false;
         }
     }
 
-    // EFFECTS: shows user all the patients in the patient records
     private void commandView() {
+        viewHelper();
+        op.feedback("");
+    }
+
+    // EFFECTS: shows user all the patients in the patient records
+    private void viewHelper() {
         String s = "";
         for (Patient p: patientRecords.getRecords().values()) {
             s += p.getPublicHealthNumber() + ": " + p.getFullName() + "\n";
@@ -219,16 +237,21 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
 
     // EFFECTS: saves the patient records to file
     private void save() {
-        try {
-            jsonWriter.open();
-            jsonWriter.write(patientRecords);
-            jsonWriter.close();
-            System.out.println("Saved patient records to " + JSON_STORE);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
-        }
+        if (!changesSaved) {
+            try {
+                jsonWriter.open();
+                jsonWriter.write(patientRecords);
+                jsonWriter.close();
+                op.save();
+                op.feedback("Saved patient records");
+            } catch (FileNotFoundException e) {
+                op.feedback("Unable to save files.");
+            }
 
-        changesSaved = true;
+            changesSaved = true;
+        } else {
+            op.feedback("No changes to save.");
+        }
 
 
 
@@ -240,9 +263,9 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
 
         try {
             patientRecords = jsonReader.read();
-            System.out.println("Loaded patient records from " + JSON_STORE);
+            op.feedback("Loaded patient records.");
         } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
+            op.feedback("Unable to load file.");
         }
 
     }
@@ -266,7 +289,7 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     // and quits the application, if user inputs "n", quits the application,
     // otherwise prompts user to try again
     private void promptSave() {
-        op.save();
+        op.saveQuit();
         pack();
     }
 
@@ -294,6 +317,10 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         }
 
         return validInput;
+    }
+
+    public void playSound() {
+        soundPlayer.play();
     }
 
 
