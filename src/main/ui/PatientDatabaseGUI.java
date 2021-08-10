@@ -4,6 +4,7 @@ import model.Patient;
 import model.PatientRecords;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import java.awt.Image;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
@@ -17,6 +18,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+
+
 
 public class PatientDatabaseGUI extends JFrame implements ActionListener {
     public static final int WIDTH = 800;
@@ -34,6 +37,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
 
     private SoundPlayer soundPlayer;
 
+
+    // EFFECTS: Constructs a patient database graphical user interface
     public PatientDatabaseGUI() {
         // createWindow
         super("Patient Database");
@@ -64,6 +69,9 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         initialize();
     }
 
+
+
+
     private void initialize() {
         patientRecords = new PatientRecords();
         changesSaved = true;
@@ -73,13 +81,18 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         load();
     }
 
+
+
     //This is the method that is called when the the JButton btn is clicked
     public void actionPerformed(ActionEvent e) {
         playSound();
         generateGUI(e);
+//        ImageIcon icon;
         dataPersistenceFunctions(e);
         if (e.getActionCommand().equals("VIEW")) {
             commandView();
+//            icon = new ImageIcon("C:\\Users\\saqib\\CPSC210Summerlabs\\quiz2partb\\kermit.jpg)");
+//            this.setIconImage(icon.getImage());
         }
         if (e.getActionCommand().equals("ADD")) {
             commandAdd();
@@ -95,6 +108,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         }
     }
 
+
+    // EFFECTS: generates graphical user interface
     private void generateGUI(ActionEvent e) {
         if (e.getActionCommand().equals("ADD_GUI")) {
             op.add();
@@ -109,6 +124,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         }
     }
 
+
+    // EFFECTS: provides data persistence functionality
     private void dataPersistenceFunctions(ActionEvent e) {
         if (e.getActionCommand().equals("SAVE")) {
             save();
@@ -293,6 +310,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         pack();
     }
 
+
+
     private boolean validateInput(int publicHealthNumber) {
         boolean validInput = true;
 
@@ -304,6 +323,9 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
 
         return validInput;
     }
+
+
+
 
     private boolean validateInput(int publicHealthNumber, String fullName) {
         boolean validInput = true;
@@ -319,7 +341,11 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         return validInput;
     }
 
+
+
+
     public void playSound() {
+
         soundPlayer.play();
     }
 

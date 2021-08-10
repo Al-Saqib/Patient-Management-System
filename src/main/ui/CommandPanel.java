@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+
+// Represents a command panel
+
 public class CommandPanel extends JPanel {
 
     private static final String ADD = "Add a patient";
@@ -15,6 +18,8 @@ public class CommandPanel extends JPanel {
 
     private ActionListener listener;
 
+    // EFFECTS: constructs the command panel
+
     public CommandPanel(ActionListener listener) {
         this.listener = listener;
 
@@ -24,6 +29,8 @@ public class CommandPanel extends JPanel {
         createButtons();
 
     }
+
+    // EFFECTS: creates buttons for commands with gridx
 
     private void createButtons() {
         GridBagConstraints c = new GridBagConstraints();
@@ -37,6 +44,8 @@ public class CommandPanel extends JPanel {
         JButton buttonSave = createButton("save", c, 6);
     }
 
+    // EFFECTS: creates buttons for commands with gridy
+
     private JButton createButton(String name, String action, GridBagConstraints c, int y) {
         JButton button = new JButton(name.toUpperCase());
         button.addActionListener(listener);
@@ -46,6 +55,8 @@ public class CommandPanel extends JPanel {
         add(button);
         return button;
     }
+
+    // EFFECTS: creates the command buttons with gridy
 
     private JButton createButton(String name, GridBagConstraints c, int y) {
         JButton button = new JButton(name.toUpperCase());
