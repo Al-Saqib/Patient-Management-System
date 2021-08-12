@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -66,7 +67,7 @@ public class PatientRecordsTest {
     @Test
     void testGetListOfPatients() {
         records.addPatient(number, name);
-        HashMap<Integer, Patient> cap = records.getRecords();
+        Map<Integer, Patient> cap = records.getRecords();
 
         Patient j = records.getPatientByID(number);
         Patient p = cap.get(number);

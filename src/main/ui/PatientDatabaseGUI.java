@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-
+// Represents a patient database graphical user interface with specified dimensions
 public class PatientDatabaseGUI extends JFrame implements ActionListener {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
@@ -38,8 +38,15 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     private SoundPlayer soundPlayer;
 
 
+
+
+
+
     // EFFECTS: Constructs a patient database graphical user interface
     public PatientDatabaseGUI() {
+
+
+
         // createWindow
         super("Patient Database");
 
@@ -52,6 +59,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         });
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
+
+
         // Components (Panels: title panel, command panel, save/load panel, crud panels)
         cp = new CommandPanel(this);
         op = new OperationsPanel(this);
@@ -59,6 +68,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         add(op, BorderLayout.EAST);
 
         // Event Handling
+
+
 
         // Resizing Window
         pack();
@@ -72,6 +83,11 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
 
 
 
+
+
+
+
+    // EFFECTS: initializes the fields contained in the method
     private void initialize() {
         patientRecords = new PatientRecords();
         changesSaved = true;
@@ -83,7 +99,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
 
 
 
-    //This is the method that is called when the the JButton btn is clicked
+    //EFFECTS: This is called when the the JButton btn is clicked
+    // provides the specified results for the actions performed on the GUI
     public void actionPerformed(ActionEvent e) {
         playSound();
         generateGUI(e);
@@ -107,6 +124,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
             System.exit(0);
         }
     }
+
+
 
 
     // EFFECTS: generates graphical user interface
@@ -238,10 +257,15 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         }
     }
 
+
+
+
     private void commandView() {
         viewHelper();
         op.feedback("");
     }
+
+
 
     // EFFECTS: shows user all the patients in the patient records
     private void viewHelper() {
@@ -270,9 +294,9 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
             op.feedback("No changes to save.");
         }
 
-
-
     }
+
+
 
     // MODIFIES: this
     // EFFECTS: loads patient records from file
@@ -286,6 +310,7 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         }
 
     }
+
 
     // EFFECTS: if a user quits the applications after making changes, prompts the user
     // to save patient records, otherwise returns false
@@ -311,7 +336,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     }
 
 
-
+    // EFFECTS: checks whether the public health number entered is valid or not
+    // if not valid, displays an invalid message
     private boolean validateInput(int publicHealthNumber) {
         boolean validInput = true;
 
@@ -326,7 +352,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
 
 
 
-
+    // EFFECTS: checks whether the patient name entered is valid or not
+    // if not valid, displays an invalid message
     private boolean validateInput(int publicHealthNumber, String fullName) {
         boolean validInput = true;
 
@@ -342,8 +369,7 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     }
 
 
-
-
+    // EFFECTS: plays sound when buttons are clicked
     public void playSound() {
 
         soundPlayer.play();

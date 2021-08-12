@@ -135,6 +135,7 @@ public class OperationsPanel extends JPanel {
 
     // MODIFIES: this
     // EFFECTS: edits a patient in the patient records
+
     public void edit() {
         functionalityLabel.setText("Edit Patient");
         visible();

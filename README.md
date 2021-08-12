@@ -30,8 +30,19 @@ The following are the *user stories* for the application:
 
 
 **User stories for phase 2**: 
+
 - As a *user*, I want be able to **save** the patient records to file. 
 - As a *user*, I want to be able to **load** the patient records from the file. 
 - As a *user*, I want to be **prompted to save** the patient records to file when I quit.  
 - As a *user*, I want to have the **saved patient records already loaded** when I start the application. 
+
+**Phase 4 Task 2**: 
+
+- I have chosen to implement the map interface in my project.
+- I use a HashMap<> to implement the map interface.
+- PatientRecords class contains the primary implementation of this interface. 
+
+
+
+**Phase 4 Task 3**: 
 

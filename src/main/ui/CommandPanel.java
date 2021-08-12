@@ -30,7 +30,7 @@ public class CommandPanel extends JPanel {
 
     }
 
-    // EFFECTS: creates buttons for commands with gridx
+    // EFFECTS: creates buttons for commands with the horizontal plane
 
     private void createButtons() {
         GridBagConstraints c = new GridBagConstraints();
@@ -44,7 +44,7 @@ public class CommandPanel extends JPanel {
         JButton buttonSave = createButton("save", c, 6);
     }
 
-    // EFFECTS: creates buttons for commands with gridy
+    // EFFECTS: creates buttons for commands with the vertical plane
 
     private JButton createButton(String name, String action, GridBagConstraints c, int y) {
         JButton button = new JButton(name.toUpperCase());
@@ -56,7 +56,7 @@ public class CommandPanel extends JPanel {
         return button;
     }
 
-    // EFFECTS: creates the command buttons with gridy
+    // EFFECTS: creates the command buttons with with the vertical plane
 
     private JButton createButton(String name, GridBagConstraints c, int y) {
         JButton button = new JButton(name.toUpperCase());

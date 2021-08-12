@@ -3,6 +3,7 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+
 // Represents a patient to be managed by the diagnostic center administration
 // with patient's name and public health number.
 

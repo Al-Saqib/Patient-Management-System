@@ -7,12 +7,13 @@ import persistence.Writable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 // Represents a map of patients to be handled by the diagnostic center
 // management team
 public class PatientRecords implements Writable {
 
-    private HashMap<Integer, Patient> patientMap;
+    private Map<Integer, Patient> patientMap;
 
     // EFFECTS: initializes a new PatientRecords as an empty map
     public PatientRecords() {
@@ -60,7 +61,7 @@ public class PatientRecords implements Writable {
 
 
     // EFFECTS: returns a Hashmap
-    public HashMap<Integer, Patient> getRecords() {
+    public Map<Integer, Patient> getRecords() {
         return patientMap;
     }
 
