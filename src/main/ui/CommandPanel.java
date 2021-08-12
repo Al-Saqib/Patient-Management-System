@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 
-// Represents a command panel
+// Represents a command panel that provides operational functionality for user
 
 public class CommandPanel extends JPanel {
 

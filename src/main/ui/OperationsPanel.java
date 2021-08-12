@@ -5,7 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 
-// Represents a operations panel that displays the required operations performed in the app
+// Represents a operations panel that displays the required operations performed in the application
+
 public class OperationsPanel extends JPanel {
     private ActionListener listener;
     private JLabel functionalityLabel;

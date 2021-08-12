@@ -19,8 +19,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+// graphical user interface implementation is inspired by SpaceInvaders
+// project as demonstrated in CPSC 210 class
 
-// Represents a patient database graphical user interface with specified dimensions
+
+// Represents a patient database graphical user interface with width and height
+
 public class PatientDatabaseGUI extends JFrame implements ActionListener {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;

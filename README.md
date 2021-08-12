@@ -36,7 +36,7 @@ The following are the *user stories* for the application:
 - As a *user*, I want to be **prompted to save** the patient records to file when I quit.  
 - As a *user*, I want to have the **saved patient records already loaded** when I start the application. 
 
-**Phase 4 Task 2**: 
+##Phase 4 Task 2:
 
 - I have chosen to implement the map interface in my project.
 - I use a HashMap<> to implement the map interface.
@@ -44,5 +44,5 @@ The following are the *user stories* for the application:
 
 
 
-**Phase 4 Task 3**: 
+##Phase 4 Task 3:
 

@@ -18,7 +18,11 @@ import static java.lang.Boolean.TRUE;
 // data persistence implementation is inspired by JSon
 // Serialization Demo provided for project phase 2
 
+
+
+
 // Represents the patient management application
+
 public class PatientDatabase {
     private static final String JSON_STORE = "./data/database.json";
 
@@ -28,7 +32,7 @@ public class PatientDatabase {
     private PatientRecords patientRecords;
     private Scanner input;
 
-    // EFFECTS: runs the patient management application
+    // EFFECTS: constructs the patient management application
     public PatientDatabase() {
         patientRecords = new PatientRecords();
     }
