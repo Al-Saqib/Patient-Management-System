@@ -43,7 +43,7 @@ The following are the *user stories* for the application:
 - As a *user*, I want to have the **saved patient records already loaded** when I start the application. 
 
 
-##Phase 4 Task 2:
+## Phase 4 Task 2:
 
 - I have chosen to implement the map interface in my project.
 
@@ -52,7 +52,7 @@ The following are the *user stories* for the application:
 - PatientRecords class contains the primary implementation of this interface. 
 
 
-##Phase 4 Task 3:
+## Phase 4 Task 3:
 
 - I could have extracted 'submit' operations under one method and then called this method 
 inside the OperationsPanel constructor, increasing cohesion and readability. 
@@ -66,5 +66,5 @@ the patient database graphical user interface constructor. This would have incre
 - I could have moved the methods related to user operations in patient database graphical user interface class to 
 operations panel class and then called them inside patient database gui as required. This would have increased cohesion. 
 
-- I could have extracted a method from 'command add/edit' methods that checks for user input validity inside patient database and 
-patient database gui classes. This would have reduced coupling. 
+- I could have extracted a method from **command add** and **command edit** methods that checks for user input validity
+as an integer inside patient database and patient database gui classes. This would have reduced coupling. 

@@ -265,7 +265,8 @@ public class PatientDatabase {
     }
 
 
-    // EFFECT: takes the user input and returns if an integer, otherwise prompts user for a valid input
+    // EFFECT: takes the user input and returns an integer if user input is integer;
+    // otherwise prompts user for a valid input
 
     public int processInt() {
         System.out.println("\nPlease enter public health number of patient:");
