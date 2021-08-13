@@ -63,15 +63,14 @@ public class SoundPlayer {
 
 
     // // EFFECTS: constructs a sound player
+
     public SoundPlayer() {
         setFile(CLICK_STORE);
     }
 
 
-
-
-
     // EFFECTS: sets the music playing functionality
+
     public void setFile(String path) {
         try {
             File file = new File(path);
@@ -89,9 +88,8 @@ public class SoundPlayer {
     }
 
 
+    // EFFECTS: starts the music when a button is clicked
 
-
-    // EFFECTS: starts the music when a button (action) is clicked
     public void play() {
         click1.setFramePosition(0);
         click1.start();

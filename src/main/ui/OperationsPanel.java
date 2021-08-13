@@ -1,5 +1,6 @@
 package ui;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.awt.event.ActionListener;
 // Represents a operations panel that displays the required operations performed in the application
 
 public class OperationsPanel extends JPanel {
+
     private ActionListener listener;
     private JLabel functionalityLabel;
     private JLabel labelInstruction;
@@ -20,8 +22,8 @@ public class OperationsPanel extends JPanel {
     private JButton submit;
 
 
-
     // EFFECTS: Constructs the operations panel with the required fields and dimensions
+
     public OperationsPanel(ActionListener listener) {
         this.listener = listener;
 
@@ -69,6 +71,7 @@ public class OperationsPanel extends JPanel {
 
 
     // EFFECTS: sets up the labels that appear in add, edit and delete functions
+
     private void settingUpLabels() {
         GridBagConstraints c = new GridBagConstraints();
 
@@ -78,11 +81,9 @@ public class OperationsPanel extends JPanel {
         input1 = new JTextField(10);
         input1.addActionListener(listener);
         input1.setActionCommand("ADD_NUM");
-
         add(input1, c);
 
         label2 = addLabel("Full Name: ", c);
-
         input2 = new JTextField(15);
         input2.addActionListener(listener);
         input2.setActionCommand("ADD_NAME");
@@ -91,7 +92,9 @@ public class OperationsPanel extends JPanel {
 
 
     // MODIFIES: this
-    // EFFECTS: adds a label to the operations panel
+    // EFFECTS: adds a label with dimensional constraints to the operations panel;
+    // returns the label
+
     private JLabel addLabel(GridBagConstraints c) {
         JLabel label = new JLabel();
         add(label, c);
@@ -100,7 +103,9 @@ public class OperationsPanel extends JPanel {
 
 
     // MODIFIES: this
-    // EFFECTS: adds a label with string to the operations panel
+    // EFFECTS: adds a label with string and dimensional constraints to the operations panel;
+    // returns the label
+
     private JLabel addLabel(String s, GridBagConstraints c) {
         JLabel label = new JLabel(s);
         add(label, c);
@@ -108,23 +113,18 @@ public class OperationsPanel extends JPanel {
     }
 
 
-
-
-
-
-
-
     // MODIFIES: this
-    // EFFECTS: adds a patient to patient records
+    // EFFECTS: sets up the texts and labels required for adding a patient.
 
     public void add() {
         functionalityLabel.setText("Add Patient");
+
         visible();
+
         text.setVisible(false);
+
         labelInstruction.setText("Please enter public health number and name of the patient:");
-
         label1.setText("Public Health Number: ");
-
         label2.setText("Full Name: ");
 
         submit.setActionCommand("ADD");
@@ -133,59 +133,59 @@ public class OperationsPanel extends JPanel {
     }
 
 
-
     // MODIFIES: this
-    // EFFECTS: edits a patient in the patient records
+    // EFFECTS: sets up the texts and labels required for editing a patient name
 
     public void edit() {
         functionalityLabel.setText("Edit Patient");
+
         visible();
+
         labelInstruction.setText("Please enter public health number and name of the patient:");
-
         label1.setText("Public Health Number: ");
-
         label2.setText("Full Name: ");
 
         submit.setActionCommand("EDIT");
+
         labelFeedback.setText("");
     }
 
 
-
-
-
     // MODIFIES: this
-    // EFFECTS: deletes a patient in the patient records
+    // EFFECTS: sets up the texts and labels required for deleting a patient
+
     public void delete() {
         functionalityLabel.setText("Delete Patient");
-        visible();
-        labelInstruction.setText("Please enter public health number and name of the patient:");
 
+        visible();
+
+        labelInstruction.setText("Please enter public health number and name of the patient:");
         label1.setText("Public Health Number: ");
 
         label2.setVisible(false);
         input2.setVisible(false);
 
         submit.setActionCommand("DELETE");
+
         labelFeedback.setText("");
     }
 
 
+    // EFFECTS: sets up the texts and labels required for viewing a patient
 
-
-
-    // EFFECTS: shows patients in the patient records
     public void view(String s) {
         functionalityLabel.setText("");
+
         invisible();
+
         text.setVisible(true);
+
         text.setText("Patient Records: \n" +  s);
     }
 
 
+    // EFFECTS: makes the patient records in file invisible on the panel
 
-
-    // EFFECTS: makes the patient records invisible
     private void invisible() {
         labelInstruction.setVisible(false);
         label1.setVisible(false);
@@ -197,8 +197,8 @@ public class OperationsPanel extends JPanel {
     }
 
 
+    // EFFECTS: makes the patient records in file visible on the panel
 
-    // EFFECTS: makes the patient records visible
     private void visible() {
         labelInstruction.setVisible(true);
         label1.setVisible(true);
@@ -209,44 +209,41 @@ public class OperationsPanel extends JPanel {
     }
 
 
-
-
     // EFFECTS: gets full name of patient
+
     public String getFullName() {
         return input2.getText();
     }
 
 
-
     // EFFECTS: gets public health number of patient
+
     public String getPublicHealthNumber() {
         return input1.getText();
     }
 
 
+    // EFFECTS: gives feedback for button clicks
 
-
-    // EFFECTS: gives feedback for commands
     public void feedback(String s) {
         labelFeedback.setText(s);
     }
 
 
-
-
     // EFFECTS: clears the labels for further operations
+
     public void clear() {
         input1.setText("");
         input2.setText("");
     }
 
 
+    // EFFECTS: sets up the texts and labels required for saving a patient
+    // before quitting the application
 
-
-    // EFFECTS: prompts user to save if file has not been saved. If yes, saves file and quits.
-    // If no, quits without saving
     public void saveQuit() {
         add(new JLabel("Would you prefer to save this database?"));
+
         JButton no = new JButton("No");
         no.addActionListener(listener);
         no.setActionCommand("QUIT");
@@ -260,9 +257,9 @@ public class OperationsPanel extends JPanel {
     }
 
 
+    // EFFECTS: sets up the texts and labels required for saving a patient
+    // while the application is running
 
-
-    // EFFECTS:
     public void save() {
         invisible();
         labelFeedback.setVisible(true);

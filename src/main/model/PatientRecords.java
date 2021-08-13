@@ -11,11 +11,14 @@ import java.util.Map;
 
 // Represents a map of patients to be handled by the diagnostic center
 // management team
+
 public class PatientRecords implements Writable {
 
     private Map<Integer, Patient> patientMap;
 
+
     // EFFECTS: initializes a new PatientRecords as an empty map
+
     public PatientRecords() {
         patientMap = new HashMap<>();
 
@@ -24,6 +27,7 @@ public class PatientRecords implements Writable {
 
     // MODIFIES: this
     // EFFECTS: adds a patient to the patient records
+
     public void addPatient(int publicHealthNumber, String fullName) {
         patientMap.put(publicHealthNumber, new Patient(fullName, publicHealthNumber));
     }
@@ -31,6 +35,7 @@ public class PatientRecords implements Writable {
 
     // EFFECTS: returns a patient if a patient with the given public health
     // number exists in the patient records
+
     public Patient getPatientByID(int publicHealthNumber) {
         Patient p = patientMap.get(publicHealthNumber);
         return p;
@@ -40,6 +45,7 @@ public class PatientRecords implements Writable {
     // MODIFIES: this
     // EFFECTS: if a patient with the given public health number exists, changes
     // the name of the patient to the given name. Otherwise, returns the patient.
+
     public Patient editPatient(String fullName, int publicHealthNumber) {
         Patient j = patientMap.get(publicHealthNumber);
 
@@ -54,6 +60,7 @@ public class PatientRecords implements Writable {
     // MODIFIES: this
     // EFFECTS: if a patient with the given public health
     // number exists, it deletes that patient from the patient records.
+
     public void deletePatient(int publicHealthNumber) {
         patientMap.remove(publicHealthNumber);
     }
@@ -61,6 +68,7 @@ public class PatientRecords implements Writable {
 
 
     // EFFECTS: returns a Hashmap
+
     public Map<Integer, Patient> getRecords() {
         return patientMap;
     }
@@ -73,7 +81,9 @@ public class PatientRecords implements Writable {
         return json;
     }
 
+
     // EFFECTS: returns patients in this patient records as a JSON array
+
     private JSONArray patientsToJson() {
         JSONArray jsonArray = new JSONArray();
 

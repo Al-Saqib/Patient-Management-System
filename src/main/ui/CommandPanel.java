@@ -5,18 +5,19 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 
-// Represents a command panel that provides operational functionality for user
+// Represents a command panel that provides options of operations for user
 
 public class CommandPanel extends JPanel {
 
-    private static final String ADD = "Add a patient";
-    private static final String VIEW = "View a patient";
-    private static final String EDIT = "Edit a patient";
-    private static final String DELETE = "Delete a patient";
-    private static final String LOAD = "Load a patient from file";
-    private static final String SAVE = "Save a patient to file";
+//    private static final String ADD = "Add a patient";
+//    private static final String VIEW = "View a patient";
+//    private static final String EDIT = "Edit a patient";
+//    private static final String DELETE = "Delete a patient";
+//    private static final String LOAD = "Load a patient from file";
+//    private static final String SAVE = "Save a patient to file";
 
     private ActionListener listener;
+
 
     // EFFECTS: constructs the command panel
 
@@ -30,7 +31,8 @@ public class CommandPanel extends JPanel {
 
     }
 
-    // EFFECTS: creates buttons for commands with the horizontal plane
+
+    // EFFECTS: creates buttons for commands with the horizontal plane dimension constraints
 
     private void createButtons() {
         GridBagConstraints c = new GridBagConstraints();
@@ -44,9 +46,12 @@ public class CommandPanel extends JPanel {
         JButton buttonSave = createButton("save", c, 6);
     }
 
-    // EFFECTS: creates buttons for commands with the vertical plane
+
+    // EFFECTS: creates a button with name, action and vertical plane dimension constraints;
+    // and returns it
 
     private JButton createButton(String name, String action, GridBagConstraints c, int y) {
+
         JButton button = new JButton(name.toUpperCase());
         button.addActionListener(listener);
         button.setActionCommand(action.toUpperCase());
@@ -56,7 +61,9 @@ public class CommandPanel extends JPanel {
         return button;
     }
 
-    // EFFECTS: creates the command buttons with with the vertical plane
+
+    // EFFECTS: creates a command buttons with name, vertical plane dimension constraints;
+    // and returns it
 
     private JButton createButton(String name, GridBagConstraints c, int y) {
         JButton button = new JButton(name.toUpperCase());

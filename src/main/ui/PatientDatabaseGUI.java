@@ -1,5 +1,6 @@
 package ui;
 
+
 import model.Patient;
 import model.PatientRecords;
 import persistence.JsonReader;
@@ -19,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+
 // graphical user interface implementation is inspired by SpaceInvaders
 // project as demonstrated in CPSC 210 class
 
@@ -32,8 +34,10 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/database.json";
 
     private JsonWriter jsonWriter;
-    private boolean changesSaved;
     private JsonReader jsonReader;
+
+    private boolean changesSaved;
+
     private PatientRecords patientRecords;
 
     private CommandPanel cp;
@@ -42,15 +46,9 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     private SoundPlayer soundPlayer;
 
 
+    // EFFECTS: Constructs a graphical user interface for the patient database application
 
-
-
-
-    // EFFECTS: Constructs a patient database graphical user interface
     public PatientDatabaseGUI() {
-
-
-
         // createWindow
         super("Patient Database");
 
@@ -63,17 +61,12 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         });
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-
-
-        // Components (Panels: title panel, command panel, save/load panel, crud panels)
+        // Components (Panels)
         cp = new CommandPanel(this);
         op = new OperationsPanel(this);
+
         add(cp, BorderLayout.WEST);
         add(op, BorderLayout.EAST);
-
-        // Event Handling
-
-
 
         // Resizing Window
         pack();
@@ -85,13 +78,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     }
 
 
+    // EFFECTS: initializes the fields contained in this class
 
-
-
-
-
-
-    // EFFECTS: initializes the fields contained in the method
     private void initialize() {
         patientRecords = new PatientRecords();
         changesSaved = true;
@@ -102,37 +90,43 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     }
 
 
+    //EFFECTS: This is called when the the JButton btn is clicked;
+    // provides the specified actions for the user inputs as performed on the GUI
 
-    //EFFECTS: This is called when the the JButton btn is clicked
-    // provides the specified results for the actions performed on the GUI
     public void actionPerformed(ActionEvent e) {
         playSound();
         generateGUI(e);
 //        ImageIcon icon;
+
         dataPersistenceFunctions(e);
+
         if (e.getActionCommand().equals("VIEW")) {
             commandView();
+
 //            icon = new ImageIcon("C:\\Users\\saqib\\CPSC210Summerlabs\\quiz2partb\\kermit.jpg)");
 //            this.setIconImage(icon.getImage());
         }
+
         if (e.getActionCommand().equals("ADD")) {
             commandAdd();
         }
+
         if (e.getActionCommand().equals("EDIT")) {
             commandEdit();
         }
+
         if (e.getActionCommand().equals("DELETE")) {
             commandDelete();
         }
+
         if (e.getActionCommand().equals("QUIT")) {
             System.exit(0);
         }
     }
 
 
-
-
     // EFFECTS: generates graphical user interface
+
     private void generateGUI(ActionEvent e) {
         if (e.getActionCommand().equals("ADD_GUI")) {
             op.add();
@@ -149,22 +143,29 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
 
 
     // EFFECTS: provides data persistence functionality
+
     private void dataPersistenceFunctions(ActionEvent e) {
         if (e.getActionCommand().equals("SAVE")) {
             save();
         }
+
         if (e.getActionCommand().equals("LOAD")) {
             load();
         }
+
         if (e.getActionCommand().equals("SAVE_QUIT")) {
             save();
             System.exit(0);
         }
     }
 
+
     // MODIFIES: this
     // EFFECTS: prompts user for name and public health number of patient and
-    // adds to patient records
+    // adds to patient records if user input is valid. If patient already exists,
+    // prompts user to use the edit operation. Provides feedback once the patient
+    // has been added to patient records.
+
     private void commandAdd() {
         int publicHealthNumber = 0;
         String fullName = "";
@@ -195,8 +196,12 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         }
     }
 
+
     // MODIFIES: this
-    // EFFECTS: edits full name of the patient in the patient records
+    // EFFECTS: edits full name of the patient in the patient records if user
+    // input is valid. If patient does not exist, prompts user to use the add operation.
+    // Provides feedback once the patient name has been successfully edited.
+
     private void commandEdit() {
         int publicHealthNumber = 0;
         String fullName = "";
@@ -229,8 +234,11 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         }
     }
 
+
     // MODIFIES: this
-    // EFFECTS: deletes a patient from list of patients
+    // EFFECTS: deletes a patient from list of patients if user input is valid.
+    // Once the patient is deleted, feedback is provided confirming the operation.
+
     private void commandDelete() {
         int publicHealthNumber = 0;
 
@@ -262,7 +270,9 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     }
 
 
-
+    // EFFECTS: calls viewHelper() and
+    // shows user all the patients in the patient records;
+    // provides no feedback
 
     private void commandView() {
         viewHelper();
@@ -270,8 +280,8 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     }
 
 
-
     // EFFECTS: shows user all the patients in the patient records
+
     private void viewHelper() {
         String s = "";
         for (Patient p: patientRecords.getRecords().values()) {
@@ -280,7 +290,10 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
         op.view(s);
     }
 
-    // EFFECTS: saves the patient records to file
+
+    // EFFECTS: saves the patient records to file, provides feedback for success and failure
+    // of the operation.
+
     private void save() {
         if (!changesSaved) {
             try {
@@ -301,9 +314,10 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     }
 
 
-
     // MODIFIES: this
-    // EFFECTS: loads patient records from file
+    // EFFECTS: loads patient records from file, provides feedback if patient records has been loaded
+    // and if patient records has not been loaded
+
     private void load() {
 
         try {
@@ -334,6 +348,7 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     // EFFECTS: if user inputs "y", saves patient records to database
     // and quits the application, if user inputs "n", quits the application,
     // otherwise prompts user to try again
+
     private void promptSave() {
         op.saveQuit();
         pack();
@@ -342,6 +357,7 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
 
     // EFFECTS: checks whether the public health number entered is valid or not
     // if not valid, displays an invalid message
+
     private boolean validateInput(int publicHealthNumber) {
         boolean validInput = true;
 
@@ -355,9 +371,9 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
     }
 
 
-
     // EFFECTS: checks whether the patient name entered is valid or not
     // if not valid, displays an invalid message
+
     private boolean validateInput(int publicHealthNumber, String fullName) {
         boolean validInput = true;
 
@@ -374,6 +390,7 @@ public class PatientDatabaseGUI extends JFrame implements ActionListener {
 
 
     // EFFECTS: plays sound when buttons are clicked
+
     public void playSound() {
 
         soundPlayer.play();

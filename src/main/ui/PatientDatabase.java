@@ -1,5 +1,6 @@
 package ui;
 
+
 import model.PatientRecords;
 import model.Patient;
 import persistence.JsonReader;
@@ -12,13 +13,12 @@ import java.util.Scanner;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
+
 // console implementation is inspired by the teller
 // app example provided for project phase 1
 
 // data persistence implementation is inspired by JSon
 // Serialization Demo provided for project phase 2
-
-
 
 
 // Represents the patient management application
@@ -32,13 +32,16 @@ public class PatientDatabase {
     private PatientRecords patientRecords;
     private Scanner input;
 
+
     // EFFECTS: constructs the patient management application
     public PatientDatabase() {
         patientRecords = new PatientRecords();
     }
 
+
     // MODIFIES: this
     // EFFECTS: processes user input
+
     public void systemApp() {
         input = new Scanner(System.in).useDelimiter("\\n");
         boolean keepRunning = true;
@@ -63,7 +66,9 @@ public class PatientDatabase {
         System.out.println("\nSee you later!");
     }
 
-    // EFFECTS: display menu of choices to user
+
+    // EFFECTS: displays choices of operations to user
+
     private void displayMenu() {
         System.out.println("\nChoose from:");
         System.out.println("\ta -> add");
@@ -76,8 +81,10 @@ public class PatientDatabase {
 
     }
 
+
     // MODIFIES: this
-    // EFFECTS: processes user command
+    // EFFECTS: processes user commands
+
     private void processCommand(String command) {
         if (command.equals("a")) {
             commandAdd();
@@ -96,9 +103,11 @@ public class PatientDatabase {
         }
     }
 
+
     // MODIFIES: this
     // EFFECTS: prompts user for name and public health number of patient and
     // adds to patient records
+
     private void commandAdd() {
         int publicHealthNumber = processInt();
 
@@ -122,14 +131,17 @@ public class PatientDatabase {
 
 
     // EFFECTS: shows user all the patients in the patient records
+
     private void commandView() {
         for (Patient p: patientRecords.getRecords().values()) {
             System.out.println(p.getPublicHealthNumber() + ": " + p.getFullName());
         }
     }
 
+
     // MODIFIES: this
     // EFFECTS: edits full name of the patient in the patient records
+
     private void commandEdit() {
         commandView();
         int publicHealthNumber = processInt();
@@ -155,6 +167,7 @@ public class PatientDatabase {
 
     // MODIFIES: this
     // EFFECTS: deletes a patient from list of patients
+
     private void commandDelete() {
         commandView();
         int publicHealthNumber = processInt();
@@ -176,7 +189,9 @@ public class PatientDatabase {
         changesSaved = false;
     }
 
+
     // EFFECTS: saves the patient records to file
+
     private void save() {
         try {
             jsonWriter.open();
@@ -193,8 +208,10 @@ public class PatientDatabase {
 
     }
 
+
     // MODIFIES: this
     // EFFECTS: loads patient records from file
+
     private void load() {
 
         try {
@@ -205,6 +222,7 @@ public class PatientDatabase {
         }
 
     }
+
 
     // EFFECTS: if a user quits the applications after making changes, prompts the user
     // to save patient records, otherwise returns false
@@ -224,6 +242,7 @@ public class PatientDatabase {
     // EFFECTS: if user inputs "y", saves patient records to database
     // and quits the application, if user inputs "n", quits the application,
     // otherwise prompts user to try again
+
     private void promptSave() {
         System.out.println("\nWould you prefer to save this database?:");
         System.out.println("\ty -> yes");
@@ -245,7 +264,9 @@ public class PatientDatabase {
         }
     }
 
+
     // EFFECT: takes the user input and returns if an integer, otherwise prompts user for a valid input
+
     public int processInt() {
         System.out.println("\nPlease enter public health number of patient:");
         System.out.println("If you don't want to do this operation, enter a negative number.");

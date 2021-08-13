@@ -19,12 +19,14 @@ public class Patient implements Writable {
 
 
     // EFFECTS: returns full name
+
     public String getFullName() {
         return fullName;
     }
 
 
     // EFFECTS: returns public health number
+
     public int getPublicHealthNumber() {
         return publicHealthNumber;
     }
@@ -32,6 +34,7 @@ public class Patient implements Writable {
 
     // MODIFIES: this
     // EFFECTS: the existing full name is changed to a new full name
+
     public void setFullName(String fullName) {
         this.fullName = fullName;
 
