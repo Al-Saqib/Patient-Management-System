@@ -1,6 +1,4 @@
-# Project for CPSC 210 Summer Term-2
-
-## A patient management application for a diagnostic center
+# A patient management application for a diagnostic center
 
 :arrow_forward: This is my first desktop application written in java, developed for CPSC-210 class at UBC.  
 
